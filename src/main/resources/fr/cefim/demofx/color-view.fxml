@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.cefim.demofx.controllers.ColorController">
+   <children>
+      <Pane layoutX="14.0" layoutY="34.0" prefHeight="80.0" prefWidth="400.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <Slider fx:id="sliderRed" layoutX="40.0" layoutY="40.0" prefWidth="250.0" />
+            <TextField fx:id="textFieldRed" layoutX="310.0" layoutY="33.0" prefHeight="28.0" prefWidth="45.0" />
+            <Label layoutX="35.0" layoutY="10.0" text="Red">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="20.0" layoutY="110.0" prefHeight="80.0" prefWidth="400.0" AnchorPane.leftAnchor="20.0">
+         <children>
+            <Slider fx:id="sliderGreen" layoutX="40.0" layoutY="40.0" prefWidth="250.0" />
+            <TextField fx:id="textFieldGreen" layoutX="310.0" layoutY="33.0" prefHeight="28.0" prefWidth="45.0" />
+            <Label layoutX="35.0" layoutY="10.0" text="Green">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="14.0" layoutY="190.0" prefHeight="80.0" prefWidth="400.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+         <children>
+            <Slider fx:id="sliderBlue" layoutX="40.0" layoutY="40.0" prefWidth="250.0" />
+            <TextField fx:id="textFieldBlue" layoutX="310.0" layoutY="33.0" prefHeight="28.0" prefWidth="45.0" />
+            <Label layoutX="35.0" layoutY="15.0" text="Blue">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="386.0" layoutY="34.0" prefHeight="80.0" prefWidth="200.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <TextField fx:id="textFieldHex" layoutX="37.0" layoutY="33.0" prefHeight="28.0" prefWidth="150.0" />
+            <Label layoutX="35.0" layoutY="10.0" text="Hex">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="paneColor" layoutX="420.0" layoutY="134.0" prefHeight="130.0" prefWidth="150.0" AnchorPane.bottomAnchor="35.60000000000002" AnchorPane.rightAnchor="29.600000000000023" />
+   </children>
+</AnchorPane>
