@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 public class ColorController implements Initializable {
 
-    private Color color = new Color(0, 0, 0);
+    private final Color color = new Color(0, 0, 0);
     private final double MIN_SLIDER = color.getMinRgb();
     private final double MAX_SLIDER = color.getMaxRgb();
     enum COLOR{RED, GREEN, BLUE};
@@ -45,10 +45,7 @@ public class ColorController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initParamSliders(MIN_SLIDER, MAX_SLIDER, true, true, 100);
-        updateValueSliders();
-        updateValueTextFields();
-
-        updatePaneColor();
+        updateInterface();
 
         updateColorFromSliders();
 
@@ -67,15 +64,17 @@ public class ColorController implements Initializable {
     }
 
     private void setColorFromSliders(COLOR rgb) {
-        switch (rgb) {
-            case RED -> color.setRed((int) sliderRed.getValue());
-            case GREEN -> color.setGreen((int) sliderGreen.getValue());
-            case BLUE -> color.setBlue((int) sliderBlue.getValue());
+        try {
+            switch (rgb) {
+                case RED -> color.setRed((int) sliderRed.getValue());
+                case GREEN -> color.setGreen((int) sliderGreen.getValue());
+                case BLUE -> color.setBlue((int) sliderBlue.getValue());
+            }
+        } catch (IllegalArgumentException e) {
+            // aucune action à réaliser, l'interface est mise à jour ensuite
+        } finally {
+            updateInterface();
         }
-        updateValueSliders();
-        updateValueTextFields();
-        updatePaneColor();
-        System.out.println(color);
     }
     // <<< UPDATE COLOR FROM SLIDERS___end >>>//
 
@@ -87,31 +86,42 @@ public class ColorController implements Initializable {
     }
 
     private void setColorFromTextFiedls(COLOR rgb) {
-        switch (rgb) {
-            case RED -> color.setRed(Integer.parseInt(textFieldRed.getText()));
-            case GREEN -> color.setGreen(Integer.parseInt(textFieldGreen.getText()));
-            case BLUE -> color.setBlue(Integer.parseInt(textFieldBlue.getText()));
+        try {
+            switch (rgb) {
+                case RED -> color.setRed(Integer.parseInt(textFieldRed.getText()));
+                case GREEN -> color.setGreen(Integer.parseInt(textFieldGreen.getText()));
+                case BLUE -> color.setBlue(Integer.parseInt(textFieldBlue.getText()));
+            }
+        } catch (IllegalArgumentException ignored) {
+            // aucune action à réaliser, l'interface est mise à jour ensuite
+        } finally {
+            updateInterface();
         }
-        updateValueSliders();
-        updateValueTextFields();
-        updatePaneColor();
-        System.out.println(color);
     }
     // <<< UPDATE COLOR FROM TEXT_FIELD_RGB___end >>>//
 
     // <<< UPDATE COLOR FROM TEXT_FIELD_HEX___start >>>//
     private void updateColorFromTextFieldHex() {
         textFieldHex.setOnAction(actionEvent -> {
-            color.setHexValue(textFieldHex.getText());
-            updateValueSliders();
-            updateValueTextFields();
-            updatePaneColor();
-            System.out.println(color);
+            try {
+                color.setHexValue(textFieldHex.getText());
+            } catch (IllegalArgumentException e) {
+                // aucune action à réaliser, l'interface est mise à jour ensuite
+            } finally {
+                updateInterface();
+            }
         });
     }
     // <<< UPDATE COLOR FROM TEXT_FIELD_HEX___end >>>//
 
     // <<< INIT___start >>>//
+    private void updateInterface() {
+        updateValueSliders();
+        updateValueTextFields();
+        updatePaneColor();
+        System.out.println(color);
+    }
+
     private void updateValueTextFields() {
         textFieldRed.setText(String.valueOf(color.getRed()));
         textFieldGreen.setText(String.valueOf(color.getGreen()));
