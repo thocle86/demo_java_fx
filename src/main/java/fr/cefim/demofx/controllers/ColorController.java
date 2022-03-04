@@ -1,6 +1,7 @@
 package fr.cefim.demofx.controllers;
 
 import fr.cefim.demofx.models.Color;
+import fr.cefim.demofx.models.Palette;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
@@ -12,10 +13,9 @@ import java.util.ResourceBundle;
 
 public class ColorController implements Initializable {
 
-    private final Color color = new Color(0, 0, 0);
-    private final double MIN_SLIDER = color.getMinRgb();
-    private final double MAX_SLIDER = color.getMaxRgb();
-    private enum COLOR{RED, GREEN, BLUE};
+    private Color color;
+    private Palette palette;
+    private enum COLOR {RED, GREEN, BLUE};
 
     @FXML
     private Slider sliderRed;
@@ -32,19 +32,28 @@ public class ColorController implements Initializable {
     @FXML
     private TextField textFieldHex;
     @FXML
-    private Pane paneColor;
+    private Pane paneColorPalette;
+    @FXML
+    private Pane paneColorPaletteWithoutRed;
+    @FXML
+    private Pane paneColorPaletteWithMaxRed;
+    @FXML
+    private Pane paneColorPaletteWithoutGreen;
+    @FXML
+    private Pane paneColorPaletteWithMaxGreen;
+    @FXML
+    private Pane paneColorPaletteWithoutBlue;
+    @FXML
+    private Pane paneColorPaletteWithMaxBlue;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        initParamSliders(MIN_SLIDER, MAX_SLIDER, true, false, 1);
-
+        color = new Color(127,127,127);
+        palette = new Palette(color);
+        initParamSliders(color.getMinRgb(), color.getMaxRgb(), true, false, 1);
         updateInterface();
-
         updateColorFromSliders();
-
         updateColorFromTextFields();
-
         updateColorFromTextFieldHex();
     }
 
@@ -54,7 +63,6 @@ public class ColorController implements Initializable {
         sliderRed.valueProperty().addListener((observableValue, oldNumber, newNumber) -> setColorFromSliders(COLOR.RED));
         sliderGreen.valueProperty().addListener((observableValue, oldNumber, newNumber) -> setColorFromSliders(COLOR.GREEN));
         sliderBlue.valueProperty().addListener((observableValue, oldNumber, newNumber) -> setColorFromSliders(COLOR.BLUE));
-
     }
 
     private void setColorFromSliders(COLOR rgb) {
@@ -112,7 +120,8 @@ public class ColorController implements Initializable {
     private void updateInterface() {
         updateValueSliders();
         updateValueTextFields();
-        updatePaneColor();
+        updateColorPalettes();
+        updatePaneColorPalettes();
         System.out.println(color);
     }
 
@@ -129,8 +138,23 @@ public class ColorController implements Initializable {
         sliderBlue.setValue(color.getBlue());
     }
 
-    private void updatePaneColor() {
-        paneColor.setStyle("-fx-background-color: " + color.getHexValue());
+    private void updateColorPalettes() {
+        palette.setColorWithoutRed(color);
+        palette.setColorWithMaxRed(color);
+        palette.setColorWithoutGreen(color);
+        palette.setColorWithMaxGreen(color);
+        palette.setColorWithoutBlue(color);
+        palette.setColorWithMaxBlue(color);
+    }
+
+    private void updatePaneColorPalettes() {
+        paneColorPalette.setStyle("-fx-background-color: " + color.getHexValue());
+        paneColorPaletteWithoutRed.setStyle("-fx-background-color: " + palette.getColorWithoutRed().getHexValue());
+        paneColorPaletteWithMaxRed.setStyle("-fx-background-color: " + palette.getColorWithMaxRed().getHexValue());
+        paneColorPaletteWithoutGreen.setStyle("-fx-background-color: " + palette.getColorWithoutGreen().getHexValue());
+        paneColorPaletteWithMaxGreen.setStyle("-fx-background-color: " + palette.getColorWithMaxGreen().getHexValue());
+        paneColorPaletteWithoutBlue.setStyle("-fx-background-color: " + palette.getColorWithoutBlue().getHexValue());
+        paneColorPaletteWithMaxBlue.setStyle("-fx-background-color: " + palette.getColorWithMaxBlue().getHexValue());
     }
 
     private void initParamSliders(double miniSlider, double maxiSlider, boolean tickLabels, boolean tickMarks, int blockIncrement) {
