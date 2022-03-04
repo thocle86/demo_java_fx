@@ -15,36 +15,30 @@ public class ColorController implements Initializable {
     private final Color color = new Color(0, 0, 0);
     private final double MIN_SLIDER = color.getMinRgb();
     private final double MAX_SLIDER = color.getMaxRgb();
-    enum COLOR{RED, GREEN, BLUE};
+    private enum COLOR{RED, GREEN, BLUE};
 
     @FXML
     private Slider sliderRed;
-
     @FXML
     private Slider sliderGreen;
-
     @FXML
     private Slider sliderBlue;
-
     @FXML
     private TextField textFieldRed;
-
     @FXML
     private TextField textFieldGreen;
-
     @FXML
     private TextField textFieldBlue;
-
     @FXML
     private TextField textFieldHex;
-
     @FXML
     private Pane paneColor;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        initParamSliders(MIN_SLIDER, MAX_SLIDER, true, true, 100);
+        initParamSliders(MIN_SLIDER, MAX_SLIDER, true, false, 1);
+
         updateInterface();
 
         updateColorFromSliders();
@@ -114,7 +108,7 @@ public class ColorController implements Initializable {
     }
     // <<< UPDATE COLOR FROM TEXT_FIELD_HEX___end >>>//
 
-    // <<< INIT___start >>>//
+    // <<< INIT & UPDATE___start >>>//
     private void updateInterface() {
         updateValueSliders();
         updateValueTextFields();
@@ -156,5 +150,5 @@ public class ColorController implements Initializable {
         sliderBlue.setShowTickMarks(tickMarks);
         sliderBlue.setBlockIncrement(blockIncrement);
     }
-    // <<< INIT___end >>>//
+    // <<< INIT & UPDATE___end >>>//
 }
