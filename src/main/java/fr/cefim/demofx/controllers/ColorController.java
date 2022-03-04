@@ -52,23 +52,21 @@ public class ColorController implements Initializable {
 
         updateColorFromSliders();
 
-        updateColorRedFromTextField();
-        updateColorGreenFromTextField();
-        updateColorBlueFromTextField();
-        
+        updateColorFromTextFields();
+
         updateColorFromTextFieldHex();
     }
 
     // <<< UPDATE COLOR FROM SLIDERS___start >>>//
     private void updateColorFromSliders() {
         String red;
-        sliderRed.valueProperty().addListener((observableValue, oldNumber, newNumber) -> setColor(COLOR.RED));
-        sliderGreen.valueProperty().addListener((observableValue, oldNumber, newNumber) -> setColor(COLOR.GREEN));
-        sliderBlue.valueProperty().addListener((observableValue, oldNumber, newNumber) -> setColor(COLOR.BLUE));
+        sliderRed.valueProperty().addListener((observableValue, oldNumber, newNumber) -> setColorFromSliders(COLOR.RED));
+        sliderGreen.valueProperty().addListener((observableValue, oldNumber, newNumber) -> setColorFromSliders(COLOR.GREEN));
+        sliderBlue.valueProperty().addListener((observableValue, oldNumber, newNumber) -> setColorFromSliders(COLOR.BLUE));
 
     }
 
-    private void setColor(COLOR rgb) {
+    private void setColorFromSliders(COLOR rgb) {
         switch (rgb) {
             case RED -> color.setRed((int) sliderRed.getValue());
             case GREEN -> color.setGreen((int) sliderGreen.getValue());
@@ -82,34 +80,22 @@ public class ColorController implements Initializable {
     // <<< UPDATE COLOR FROM SLIDERS___end >>>//
 
     // <<< UPDATE COLOR FROM TEXT_FIELD_RGB___start >>>//
-    private void updateColorRedFromTextField() {
-        textFieldRed.setOnAction(actionEvent -> {
-            color.setRed(Integer.parseInt(textFieldRed.getText()));
-            updateValueSliders();
-            updateValueTextFields();
-            updatePaneColor();
-            System.out.println(color);
-        });
+    private void updateColorFromTextFields() {
+        textFieldRed.setOnAction(actionEvent -> setColorFromTextFiedls(COLOR.RED));
+        textFieldGreen.setOnAction(actionEvent -> setColorFromTextFiedls(COLOR.GREEN));
+        textFieldBlue.setOnAction(actionEvent -> setColorFromTextFiedls(COLOR.BLUE));
     }
 
-    private void updateColorGreenFromTextField() {
-        textFieldGreen.setOnAction(actionEvent -> {
-            color.setGreen(Integer.parseInt(textFieldGreen.getText()));
-            updateValueSliders();
-            updateValueTextFields();
-            updatePaneColor();
-            System.out.println(color);
-        });
-    }
-
-    private void updateColorBlueFromTextField() {
-        textFieldBlue.setOnAction(actionEvent -> {
-            color.setBlue(Integer.parseInt(textFieldBlue.getText()));
-            updateValueSliders();
-            updateValueTextFields();
-            updatePaneColor();
-            System.out.println(color);
-        });
+    private void setColorFromTextFiedls(COLOR rgb) {
+        switch (rgb) {
+            case RED -> color.setRed(Integer.parseInt(textFieldRed.getText()));
+            case GREEN -> color.setGreen(Integer.parseInt(textFieldGreen.getText()));
+            case BLUE -> color.setBlue(Integer.parseInt(textFieldBlue.getText()));
+        }
+        updateValueSliders();
+        updateValueTextFields();
+        updatePaneColor();
+        System.out.println(color);
     }
     // <<< UPDATE COLOR FROM TEXT_FIELD_RGB___end >>>//
 
